@@ -203,6 +203,74 @@ footer a{color:var(--redline);text-decoration:none;border-bottom:1px solid var(-
 .mode-hint{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);margin-bottom:12px;}
 .export-row{display:flex;justify-content:space-between;align-items:center;margin-top:18px;flex-wrap:wrap;gap:10px;}
 .count-note{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);}
+
+/* ---------- Bold hero cover ---------- */
+.hero-cover{
+  background:linear-gradient(165deg, var(--ink) 0%, #262A33 100%);
+  color:#F2F0EA;
+  padding:56px 0 44px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-cover::after{
+  content:'';position:absolute;top:-40%;right:-10%;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle, rgba(179,18,43,0.20) 0%, rgba(179,18,43,0) 70%);
+  pointer-events:none;
+}
+.hero-cover .eyebrow{color:#F3B6BF;}
+.hero-cover .mode-badge.mode-live{background:rgba(30,107,69,0.25);color:#8FE0B4;}
+.hero-cover h1{
+  font-family:var(--serif);font-weight:700;color:#FFFFFF;
+  font-size:clamp(30px,4.6vw,46px);line-height:1.14;margin:0 0 18px;max-width:17ch;
+  position:relative;
+}
+.hero-cover h1 em{
+  font-style:normal;color:#FFFFFF;
+  background:linear-gradient(transparent 60%, rgba(179,18,43,0.55) 60%);
+  padding:0 2px;
+}
+.hero-cover .hero-sub{font-size:16.5px;color:#C9CCD3;max-width:66ch;margin:0 0 22px;position:relative;}
+.hero-cover .hero-note{
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-left:3px solid #8FE0B4;
+  color:#D8DADD;position:relative;
+}
+.hero-cover .hero-note b{color:#FFFFFF;}
+
+.benefits-strip{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
+  margin-top:30px;position:relative;
+}
+@media (max-width:760px){.benefits-strip{grid-template-columns:1fr;}}
+.benefit-card{
+  background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);
+  border-radius:6px;padding:16px 18px;border-top:3px solid var(--accent-color, var(--redline));
+}
+.benefit-card .b-icon{font-size:20px;margin-bottom:8px;display:block;}
+.benefit-card .b-title{font-family:var(--sans) !important;font-weight:700;font-size:14px;color:#FFFFFF;margin-bottom:5px;}
+.benefit-card .b-body{font-family:var(--sans) !important;font-size:12.5px;color:#C9CCD3;line-height:1.5;}
+
+.btn-hero-primary{
+  font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:.01em;
+  padding:16px 30px;border-radius:5px;border:none;cursor:pointer;
+  background:linear-gradient(135deg, var(--redline) 0%, #8E0F22 100%);
+  color:#fff;box-shadow:0 6px 18px rgba(179,18,43,0.35);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn-hero-primary:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(179,18,43,0.45);}
+.btn-hero-primary:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none;}
+
+/* ---------- Connected tab + panel ---------- */
+.tab-panel-group{background:var(--paper-alt);border:1px solid var(--rule);border-radius:6px;overflow:hidden;margin-top:8px;}
+.tab-panel-group .mode-toggle{margin-bottom:0;background:#EDEBE5;border-bottom:1px solid var(--rule);}
+.tab-panel-group .mode-opt{border:none;border-bottom:3px solid transparent;border-radius:0;background:none;padding:13px 10px;}
+.tab-panel-group .mode-opt.active{background:var(--paper-alt);border-bottom-color:var(--redline);color:var(--redline);}
+.tab-panel-group .panel-body{padding:20px 22px 24px;}
+.tab-panel-group .field textarea{border:1px solid var(--rule);}
+
+.sample-banner{
+  font-family:var(--mono);font-size:11.5px;color:var(--slate);background:var(--slate-soft);
+  border-left:3px solid var(--slate);padding:10px 14px;margin-bottom:14px;
+}
 </style>
 </head>
 <body>
@@ -214,49 +282,72 @@ footer a{color:var(--redline);text-decoration:none;border-bottom:1px solid var(-
     </div>
   </div>
 
-  <header class="hero">
+  <header class="hero hero-cover">
     <div class="wrap">
-      <div class="eyebrow">Test Case Design <span class="mode-badge mode-live">● Real AI — no signup</span></div>
-      <h1>Write what should happen. Get the test matrix, not the busywork.</h1>
-      <p class="hero-sub">Writing formal test case design in Excel is where most QA time actually goes — not the thinking, the formatting. Type your scenarios as plain "action → expected result" notes, or just describe the feature, and this formalizes it into a proper high-level test matrix you can export straight to Excel.</p>
-      <div class="hero-note live">This calls a free public AI API (Pollinations.ai, OpenAI-compatible) to do the actual formalizing — genuine language understanding, not keyword matching. No signup, no key, works the same for anyone, including hosted standalone here on GitHub Pages. Anonymous access is rate-limited more tightly than registered use — if a request gets throttled, wait a bit and retry. Every row is tagged: what you wrote versus what AI added, so nothing gets passed off as yours that wasn't.</div>
+      <div class="eyebrow">Test Case Design <span class="mode-badge mode-live">● Real AI</span></div>
+      <h1>Stop formatting bugs. <em>Start finding them.</em></h1>
+      <p class="hero-sub">Most QA time doesn't go to thinking — it goes to reformatting the same thought into Excel columns and Jira fields. Write your scenarios in plain English, or just describe the feature, and get a proper high-level test matrix back in seconds, not hours.</p>
+      <div class="hero-note live">This calls Claude live to do the actual formalizing — genuine language understanding, not keyword matching — so generation only runs inside a Claude conversation or share link. <b>AI-augmented, human-verified:</b> every row is tagged with what you wrote versus what AI added, so the AI can suggest but the tester stays the owner of the quality call.</div>
+
+      <div class="benefits-strip">
+        <div class="benefit-card" style="--accent-color:#F3B6BF;">
+          <span class="b-icon">◐</span>
+          <div class="b-title">AI-augmented, human-verified</div>
+          <div class="b-body">Every generated row is traceable — yours or AI's — so nothing slips into a test suite without a tester's sign-off.</div>
+        </div>
+        <div class="benefit-card" style="--accent-color:#D9C27A;">
+          <span class="b-icon">⇥</span>
+          <div class="b-title">One click into Excel or Jira</div>
+          <div class="b-body">Copy as real tab-separated columns, or export a full workbook with status tracking and live summary formulas.</div>
+        </div>
+      </div>
     </div>
   </header>
 
   <main class="wrap">
 
-    <div class="mode-toggle">
-      <div class="mode-opt active" data-mode="quick">Quick scenarios</div>
-      <div class="mode-opt" data-mode="feature">Feature description</div>
-    </div>
+    <div class="tab-panel-group">
+      <div class="mode-toggle">
+        <div class="mode-opt active" data-mode="quick">Quick scenarios</div>
+        <div class="mode-opt" data-mode="feature">Feature description</div>
+      </div>
 
-    <div id="quickHint" class="mode-hint">One scenario per line, as "action → expected result". AI formalizes each into a full test case, and flags 1–3 obviously missing critical cases separately — it won't invent scenarios you didn't ask for.</div>
-    <div id="featureHint" class="mode-hint" style="display:none;">Describe the feature in a sentence or two. AI generates a full high-level test matrix — positive, negative, and edge cases — from scratch.</div>
+      <div class="panel-body">
+        <div id="quickHint" class="mode-hint">One scenario per line, as "action → expected result". AI formalizes each into a full test case, and flags 1–3 obviously missing critical cases separately — it won't invent scenarios you didn't ask for.</div>
+        <div id="featureHint" class="mode-hint" style="display:none;">Describe the feature in a sentence or two. AI generates a full high-level test matrix — positive, negative, and edge cases — from scratch.</div>
 
-    <div class="field">
-      <textarea id="inputText" style="min-height:160px;">Enter valid PAN → accepted, KYC proceeds to next step
+        <div class="field">
+          <textarea id="inputText" style="min-height:160px;">Enter valid PAN → accepted, KYC proceeds to next step
 Enter PAN with lowercase letters → rejected with a clear error message
 Leave PAN field empty and submit → validation error shown, form not submitted
 Enter a PAN that's already linked to another account → rejected with duplicate-account error</textarea>
+        </div>
+
+        <div class="btn-row-inline" style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-hero-primary" id="generateBtn">✨ Generate test matrix</button>
+          <button class="btn" id="loadExampleBtn">Load example</button>
+        </div>
+        <div class="status-row"><span class="spinner" id="genSpinner"></span><span class="status-text" id="genStatus"></span></div>
+      </div>
     </div>
 
-    <button class="btn btn-primary" id="generateBtn">Generate test matrix</button>
-    <div class="status-row"><span class="spinner" id="genSpinner"></span><span class="status-text" id="genStatus"></span></div>
-
     <div class="results" id="matrixResults">
-      <div class="result-empty">Write your scenarios or feature description above and generate to see the test matrix.</div>
+      <div class="result-empty">Write your scenarios or feature description above, or click "Load example" to see a sample instantly — no login needed.</div>
     </div>
 
     <div class="export-row" id="exportRow" style="display:none;">
       <div class="count-note" id="countNote"></div>
-      <button class="btn btn-primary" id="downloadBtn">⬇ Download as Excel (.xlsx)</button>
+      <div style="display:flex;gap:10px;">
+        <button class="btn" id="copyMatrixBtn">Copy for Excel / Jira</button>
+        <button class="btn btn-primary" id="downloadBtn">⬇ Download as Excel (.xlsx)</button>
+      </div>
     </div>
 
   </main>
 
   <footer>
     <div class="wrap">
-      <div class="footer-note">Nothing you type is stored — it's sent to a free public AI API (Pollinations.ai) for this one request and the result stays in your browser until you export it. Part of the Redline QA toolkit: see also <a href="https://ankitgarg2706-cmd.github.io/redline-qa/" target="_blank" rel="noopener">Redline</a> and my <a href="https://ankitgarg2706-cmd.github.io/qa-lead-portfolio/" target="_blank" rel="noopener">QA case file</a>.</div>
+      <div class="footer-note">Nothing you type is stored — it's sent to Claude for this one request and the result stays in your browser until you export it.</div>
     </div>
   </footer>
 
@@ -284,16 +375,14 @@ Enter a PAN that's already linked to another account → rejected with duplicate
   });
 
   async function callAI(systemPrompt, userPrompt) {
-    const url = "https://gen.pollinations.ai/text/" + encodeURIComponent(userPrompt)
-      + "?system=" + encodeURIComponent(systemPrompt)
-      + "&model=openai&json=true";
-    const response = await fetch(url);
-    if (!response.ok) {
-      if (response.status === 429) throw new Error("Rate limited — anonymous access allows limited requests per hour. Wait a bit and try again.");
-      if (response.status === 401) throw new Error("This free tier is currently requiring a key even for anonymous requests — the service's access rules may have changed again.");
-      throw new Error("API request failed (" + response.status + ")");
-    }
-    const text = (await response.text()).trim();
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 1800, system: systemPrompt, messages: [{ role: "user", content: userPrompt }] })
+    });
+    if (!response.ok) throw new Error("API request failed (" + response.status + ")");
+    const data = await response.json();
+    const text = (data.content || []).map(b => b.type === "text" ? b.text : "").join("\n").trim();
     if (!text) throw new Error("Empty response from model");
     return text;
   }
@@ -312,6 +401,49 @@ Put all cases under "suggested" since none were user-authored. Provide 8-12 test
 
   let lastMatrix = null;
 
+  const EXAMPLE_QUICK = `Enter correct username and password → login succeeds, redirected to dashboard
+Enter wrong password three times → account locked for 15 minutes, warning shown before the final attempt
+Leave both fields empty and submit → validation errors shown, no request sent
+Click "Forgot password" → reset email sent, confirmation message shown regardless of whether the email exists`;
+
+  const EXAMPLE_FEATURE = `Users log into the app with an email and password. After 3 failed attempts, the account locks for 15 minutes. A "Forgot password" link sends a reset email. Successful login redirects to the dashboard and starts a session that expires after 30 minutes of inactivity.`;
+
+  // Hand-written sample output — NOT generated live. Shown so anyone can see the tool
+  // working with zero login, honestly labeled as a pre-built sample (see sample-banner).
+  const SAMPLE_QUICK_RESULT = {
+    given: [
+      { title: 'Successful login with valid credentials', precondition: 'User has a registered account', steps: 'Enter correct username and password, tap Login', expected: 'Login succeeds, user redirected to dashboard', priority: 'High', type: 'Positive' },
+      { title: 'Account lockout after 3 failed attempts', precondition: 'User on login screen', steps: 'Enter the wrong password three times in a row', expected: 'Account locked for 15 minutes; a warning is shown before the final attempt', priority: 'High', type: 'Negative' },
+      { title: 'Submit with both fields empty', precondition: 'User on login screen', steps: 'Leave username and password blank, tap Login', expected: 'Validation errors shown; no network request sent', priority: 'Medium', type: 'Negative' },
+      { title: "Forgot password doesn't leak account existence", precondition: 'User on login screen', steps: "Tap 'Forgot password', enter an email, submit", expected: 'Reset email sent and the same confirmation shown whether or not the email is registered', priority: 'Medium', type: 'Positive' }
+    ],
+    suggested: [
+      { title: 'Lockout expires after 15 minutes', precondition: 'Account is currently locked', steps: 'Wait 15 minutes, then retry with the correct password', expected: 'Login succeeds and the lockout counter resets', priority: 'Medium', type: 'Edge' },
+      { title: 'Session expires after 30 minutes idle', precondition: 'User is logged in', steps: 'Leave the app idle for 30+ minutes, then perform an action', expected: 'User is logged out and redirected to the login screen', priority: 'Medium', type: 'Edge' }
+    ]
+  };
+
+  const SAMPLE_FEATURE_RESULT = {
+    given: [],
+    suggested: [
+      { title: 'Successful login redirects to dashboard', precondition: 'User has a valid account', steps: 'Enter correct email and password, submit', expected: 'User is redirected to the dashboard with an active session', priority: 'High', type: 'Positive' },
+      { title: 'Incorrect password rejected', precondition: 'User on login screen', steps: 'Enter a valid email with the wrong password', expected: 'Login rejected with a clear, non-specific error message', priority: 'High', type: 'Negative' },
+      { title: 'Account locks after 3 failed attempts', precondition: 'User on login screen', steps: 'Enter the wrong password three consecutive times', expected: 'Account locked for 15 minutes; further attempts blocked', priority: 'High', type: 'Negative' },
+      { title: 'Lockout auto-expires', precondition: 'Account is currently locked', steps: 'Wait 15 minutes, retry with the correct password', expected: 'Login succeeds once the lockout window has passed', priority: 'Medium', type: 'Edge' },
+      { title: 'Forgot password sends reset email', precondition: 'User on login screen', steps: "Tap 'Forgot password', enter a registered email", expected: 'Reset email is sent and a confirmation is shown', priority: 'Medium', type: 'Positive' },
+      { title: 'Forgot password does not reveal unregistered emails', precondition: 'User on login screen', steps: "Tap 'Forgot password', enter an email that isn't registered", expected: 'Same generic confirmation shown as for a registered email', priority: 'Medium', type: 'Negative' },
+      { title: 'Session expires after 30 minutes of inactivity', precondition: 'User is logged in', steps: 'Leave the session idle for 30+ minutes, then take an action', expected: 'User is logged out and returned to the login screen', priority: 'Medium', type: 'Edge' },
+      { title: 'Empty email or password blocked client-side', precondition: 'User on login screen', steps: 'Leave one or both fields blank, tap Login', expected: 'Validation error shown; no request sent to the server', priority: 'Medium', type: 'Negative' }
+    ]
+  };
+
+  document.getElementById('loadExampleBtn').addEventListener('click', async () => {
+    document.getElementById('inputText').value = mode === 'quick' ? EXAMPLE_QUICK : EXAMPLE_FEATURE;
+    const sample = mode === 'quick' ? SAMPLE_QUICK_RESULT : SAMPLE_FEATURE_RESULT;
+    lastMatrix = sample;
+    renderMatrix(sample, true);
+  });
+
   document.getElementById('generateBtn').addEventListener('click', async () => {
     const input = document.getElementById('inputText').value.trim();
     const resultsEl = document.getElementById('matrixResults');
@@ -329,7 +461,7 @@ Put all cases under "suggested" since none were user-authored. Provide 8-12 test
       lastMatrix = parsed;
       renderMatrix(parsed);
     } catch (e) {
-      resultsEl.innerHTML = `<div class="result-error">Something went wrong: ${escapeHtml(e.message)}. This tool depends on a free public API — if it's busy or briefly down, wait a few seconds and try again.</div>`;
+      resultsEl.innerHTML = `<div class="result-error">Something went wrong: ${escapeHtml(e.message)}. If you're viewing this outside a Claude conversation, that's expected — this tool needs the live Claude environment to run.</div>`;
     } finally {
       document.getElementById('genSpinner').classList.remove('show');
       document.getElementById('genStatus').textContent = '';
@@ -340,7 +472,7 @@ Put all cases under "suggested" since none were user-authored. Provide 8-12 test
   const STATUS_OPTIONS = ['Not Run', 'Pass', 'Fail', 'In Progress', 'Not Applicable', 'Later'];
   let currentRows = [];
 
-  function renderMatrix(data) {
+  function renderMatrix(data, isSample) {
     currentRows = [
       ...(data.given || []).map(r => ({ ...r, source: 'you', status: 'Not Run', executedBy: '' })),
       ...(data.suggested || []).map(r => ({ ...r, source: 'ai', status: 'Not Run', executedBy: '' })),
@@ -349,14 +481,18 @@ Put all cases under "suggested" since none were user-authored. Provide 8-12 test
       document.getElementById('matrixResults').innerHTML = '<div class="result-empty">No test cases returned — try rephrasing.</div>';
       return;
     }
-    drawTable();
+    drawTable(isSample);
     document.getElementById('exportRow').style.display = 'flex';
     const youCount = (data.given || []).length, aiCount = (data.suggested || []).length;
     document.getElementById('countNote').textContent = `${currentRows.length} test cases — ${youCount} formalized from your notes, ${aiCount} AI-suggested additions.`;
   }
 
-  function drawTable() {
-    let html = `<table class="matrix-table"><thead><tr>
+  function drawTable(isSample) {
+    let html = '';
+    if (isSample) {
+      html += `<div class="sample-banner">📋 Sample output — this is a pre-built example, not a live generation, so you can see the tool without signing in. Click "Generate test matrix" to run it live on your own input.</div>`;
+    }
+    html += `<table class="matrix-table"><thead><tr>
       <th>Title</th><th>Precondition</th><th>Steps</th><th>Expected</th><th>Priority</th><th>Type</th><th>Source</th><th>Status</th><th>Executed By</th>
     </tr></thead><tbody>`;
     currentRows.forEach((r, i) => {
@@ -411,6 +547,30 @@ Put all cases under "suggested" since none were user-authored. Provide 8-12 test
     bar.innerHTML = STATUS_OPTIONS.map(s => `<span class="summary-chip">${s}: <b>${counts[s]}</b></span>`).join('');
   }
 
+  document.getElementById('copyMatrixBtn').addEventListener('click', () => {
+    if (!currentRows.length) return;
+    const header = ['Test ID','Title','Precondition','Steps','Expected Result','Priority','Type','Source','Status','Executed By'];
+    const lines = [header.join('\t')];
+    currentRows.forEach((r, i) => {
+      lines.push([
+        'TC-' + String(i+1).padStart(2,'0'), r.title||'', r.precondition||'', r.steps||'', r.expected||'',
+        r.priority||'', r.type||'', r.source === 'you' ? 'You wrote this' : 'AI suggested', r.status||'Not Run', r.executedBy||''
+      ].map(v => String(v).replace(/\t/g,' ').replace(/\n/g,' ')).join('\t'));
+    });
+    const tsv = lines.join('\n');
+    navigator.clipboard.writeText(tsv).then(() => {
+      showToast();
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = tsv;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast();
+    });
+  });
+
   document.getElementById('downloadBtn').addEventListener('click', () => {
     if (!currentRows.length) return;
 
@@ -423,36 +583,68 @@ Put all cases under "suggested" since none were user-authored. Provide 8-12 test
     const ws1 = XLSX.utils.aoa_to_sheet(sheetData);
     ws1['!cols'] = [{wch:8},{wch:32},{wch:24},{wch:38},{wch:34},{wch:10},{wch:10},{wch:16},{wch:14},{wch:16}];
 
-    // Sheet 2: Summary
-    const statusCounts = {};
-    STATUS_OPTIONS.forEach(s => statusCounts[s] = 0);
-    currentRows.forEach(r => { statusCounts[r.status] = (statusCounts[r.status]||0) + 1; });
+    const SHEET1 = "'Test Case Design'";
+    const lastRow = currentRows.length + 1; // +1 because row 1 is the header
+    const STATUS_COL = 'I', EXEC_COL = 'J';
 
-    const executorCounts = {};
-    currentRows.forEach(r => {
-      const name = r.executedBy && r.executedBy.trim() ? r.executedBy.trim() : '(unassigned)';
-      executorCounts[name] = (executorCounts[name]||0) + 1;
-    });
+    // Distinct executed-by names, in the same order the summary rows will use
+    const executorNames = Array.from(new Set(currentRows.map(r =>
+      r.executedBy && r.executedBy.trim() ? r.executedBy.trim() : '(unassigned)'
+    ))).sort();
 
+    // Sheet 2: Summary — built with live formulas, not static snapshots,
+    // so editing Status/Executed By in Excel updates these counts automatically.
     const summaryRows = [];
     summaryRows.push(['Test Case Design — Summary']);
     summaryRows.push([]);
-    summaryRows.push(['Total test cases', currentRows.length]);
+    summaryRows.push(['Total test cases', null]); // row 3 -> formula in B3
     summaryRows.push([]);
-    summaryRows.push(['Status', 'Count']);
-    STATUS_OPTIONS.forEach(s => summaryRows.push([s, statusCounts[s]]));
+    summaryRows.push(['Status', 'Count']); // row 5
+    STATUS_OPTIONS.forEach(s => summaryRows.push([s, null]));
     summaryRows.push([]);
+    const execHeaderRow = summaryRows.length + 1; // 1-indexed row number of 'Executed By' header
     summaryRows.push(['Executed By', 'Test Cases']);
-    Object.keys(executorCounts).sort().forEach(name => summaryRows.push([name, executorCounts[name]]));
+    executorNames.forEach(name => summaryRows.push([name, null]));
 
     const ws2 = XLSX.utils.aoa_to_sheet(summaryRows);
     ws2['!cols'] = [{wch:22},{wch:14}];
+
+    // Inject formulas: total count
+    ws2['B3'] = { t: 'n', f: `COUNTA(${SHEET1}!A2:A${lastRow})` };
+
+    // Inject formulas: one COUNTIF per status, rows 6..(6+STATUS_OPTIONS.length-1)
+    STATUS_OPTIONS.forEach((s, i) => {
+      const rowNum = 6 + i; // row 5 is the 'Status/Count' header, data starts row 6
+      const cellRef = 'B' + rowNum;
+      ws2[cellRef] = { t: 'n', f: `COUNTIF(${SHEET1}!${STATUS_COL}2:${STATUS_COL}${lastRow},A${rowNum})` };
+    });
+
+    // Inject formulas: one COUNTIF per executor, starting the row after the 'Executed By' header
+    executorNames.forEach((name, i) => {
+      const rowNum = execHeaderRow + 1 + i;
+      const cellRef = 'B' + rowNum;
+      const criteria = name === '(unassigned)' ? '""' : `A${rowNum}`;
+      ws2[cellRef] = { t: 'n', f: `COUNTIF(${SHEET1}!${EXEC_COL}2:${EXEC_COL}${lastRow},${criteria})` };
+    });
 
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws1, 'Test Case Design');
     XLSX.utils.book_append_sheet(wb, ws2, 'Summary');
     XLSX.writeFile(wb, 'Test_Case_Design.xlsx');
   });
+
+  function showToast() {
+    let toast = document.getElementById('toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'toast';
+      toast.className = 'toast';
+      toast.textContent = 'Copied — paste directly into Excel or Jira';
+      document.body.appendChild(toast);
+    }
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1800);
+  }
 </script>
 
 </body>
