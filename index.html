@@ -271,6 +271,32 @@ footer a{color:var(--redline);text-decoration:none;border-bottom:1px solid var(-
   font-family:var(--mono);font-size:11.5px;color:var(--slate);background:var(--slate-soft);
   border-left:3px solid var(--slate);padding:10px 14px;margin-bottom:14px;
 }
+
+/* ---------- Claude-session modal (cosmetic — links to the real live artifact) ---------- */
+.claude-modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(10,10,12,0.72);
+  align-items:center;justify-content:center;z-index:100;padding:20px;
+}
+.claude-modal-overlay.show{display:flex;}
+.claude-modal{
+  background:#191A1E;border:1px solid rgba(255,255,255,0.08);border-radius:12px;
+  max-width:440px;width:100%;padding:32px 30px 28px;position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.claude-modal-close{
+  position:absolute;top:16px;right:16px;background:none;border:none;color:#8A8D93;
+  font-size:18px;cursor:pointer;line-height:1;padding:4px;
+}
+.claude-modal-close:hover{color:#fff;}
+.claude-modal h3{font-family:var(--sans);font-size:20px;font-weight:700;color:#fff;margin:0 0 14px;line-height:1.3;}
+.claude-modal p{font-family:var(--sans);font-size:14.5px;color:#C9CCD3;line-height:1.55;margin:0 0 22px;}
+.claude-modal-btn{
+  display:block;width:100%;text-align:center;background:#fff;color:#14161A;
+  font-family:var(--sans);font-weight:600;font-size:14.5px;padding:13px;border-radius:8px;
+  text-decoration:none;box-sizing:border-box;
+}
+.claude-modal-btn:hover{background:#EDEBE5;}
+.claude-modal-note{font-family:var(--mono);font-size:11px;color:#6B6E74;margin-top:14px;text-align:center;}
 </style>
 </head>
 <body>
@@ -350,6 +376,16 @@ Enter a PAN that's already linked to another account → rejected with duplicate
       <div class="footer-note">Nothing you type is stored — it's sent to Claude for this one request and the result stays in your browser until you export it.</div>
     </div>
   </footer>
+
+  <div class="claude-modal-overlay" id="claudeModalOverlay">
+    <div class="claude-modal">
+      <button class="claude-modal-close" id="claudeModalClose">✕</button>
+      <h3>You need a Claude session to generate</h3>
+      <p>This tool calls Claude live to formalize your input into a test matrix — that only works inside an active Claude session. This standalone page can't authenticate one on its own.</p>
+      <p>To try live generation, open this tool from inside a Claude conversation (or a Claude share link) instead of this standalone page — sign-in works there automatically.</p>
+      <div class="claude-modal-note">Status tracking, Copy, and Excel export all still work here without signing in — and "Load example" shows a real sample matrix instantly, no session required.</div>
+    </div>
+  </div>
 
 <script>
   function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -461,7 +497,8 @@ Click "Forgot password" → reset email sent, confirmation message shown regardl
       lastMatrix = parsed;
       renderMatrix(parsed);
     } catch (e) {
-      resultsEl.innerHTML = `<div class="result-error">Something went wrong: ${escapeHtml(e.message)}. If you're viewing this outside a Claude conversation, that's expected — this tool needs the live Claude environment to run.</div>`;
+      resultsEl.innerHTML = `<div class="result-error">Generation needs a live Claude session. Details: ${escapeHtml(e.message)}</div>`;
+      showClaudeModal();
     } finally {
       document.getElementById('genSpinner').classList.remove('show');
       document.getElementById('genStatus').textContent = '';
@@ -631,6 +668,18 @@ Click "Forgot password" → reset email sent, confirmation message shown regardl
     XLSX.utils.book_append_sheet(wb, ws1, 'Test Case Design');
     XLSX.utils.book_append_sheet(wb, ws2, 'Summary');
     XLSX.writeFile(wb, 'Test_Case_Design.xlsx');
+  });
+
+  // ---------- Claude-session modal ----------
+  function showClaudeModal() {
+    document.getElementById('claudeModalOverlay').classList.add('show');
+  }
+  function hideClaudeModal() {
+    document.getElementById('claudeModalOverlay').classList.remove('show');
+  }
+  document.getElementById('claudeModalClose').addEventListener('click', hideClaudeModal);
+  document.getElementById('claudeModalOverlay').addEventListener('click', (e) => {
+    if (e.target.id === 'claudeModalOverlay') hideClaudeModal();
   });
 
   function showToast() {
